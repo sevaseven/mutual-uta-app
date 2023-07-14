@@ -1,0 +1,47 @@
+import React from "react";
+import { useTheme } from "@material-ui/core/styles";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Label,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import Title from "./Title";
+
+export default function Chart(props) {
+  const theme = useTheme();
+
+  return (
+    <React.Fragment>
+      <Title>Evolucion Afiliaciones Diarias</Title>
+      <ResponsiveContainer>
+        <LineChart
+          data={props.data}
+          margin={{
+            top: 16,
+            right: 16,
+            bottom: 0,
+            left: 24,
+          }}
+        >
+          <XAxis dataKey="date" stroke={theme.palette.text.secondary} />
+          <YAxis stroke={theme.palette.text.secondary}>
+            <Label
+              angle={270}
+              position="left"
+              style={{ textAnchor: "middle", fill: theme.palette.text.primary }}
+            >
+              Cantidad
+            </Label>
+          </YAxis>
+          <Line type="monotone" dataKey="Altas" stroke="green" dot={false} />
+          <Line type="monotone" dataKey="Bajas" stroke="red" dot={false} />
+          <Legend />
+        </LineChart>
+      </ResponsiveContainer>
+    </React.Fragment>
+  );
+}
