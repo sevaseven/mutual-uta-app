@@ -29,7 +29,6 @@ import {
   fetchAfiliacionesAltasBajasXFecha,
   getDetalleSolicitudesAutorizaciones,
 } from "../../actions/indicadores";
-import { AREAS_USUARIOS, AUTORIZACIONES_BANDEJAS } from "../../utils/constants";
 import moment from "moment";
 import { fetchSeccionalesAltas } from "../../actions/cbos/seccionales";
 
@@ -80,38 +79,9 @@ export const HomeScreen = (props) => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const { seccionalesAltas, seccionalesAltasDisca } = useSelector((state) => state.seccionales);
   
-  const esUsuarioSeccional = useSelector(
-    (state) =>
-      state.auth.areas.filter((area) => area.idArea === areas.Seccional)
-        .length > 0
-    );
-  const esUsuarioNacional = useSelector(
-    (state) =>
-      state.auth.areas.filter((area) => area.idArea === areas.Nacional)
-        .length > 0
-    );
+  const esUsuarioSeccional = false;
+  const esUsuarioNacional = true;
 
-  const esUsuarioDisca = useSelector(
-    (state) =>
-      state.auth.areas.filter((area) => area.idArea === AREAS_USUARIOS.DISCAPACIDAD)
-        .length > 0
-    );
-    
-  const esUsuarioAutorizaciones = useSelector(
-    (state) =>
-      state.auth.areas.filter(
-        (area) => area.idArea === AREAS_USUARIOS.AUTORIZACIONES
-      ).length > 0
-  );
-
-  const tieneBandejasDenunciaInt = useSelector(
-    (state) =>
-      state.auth.bandejasAutorizacion.filter(
-        (bandeja) => bandeja.idBandeja === AUTORIZACIONES_BANDEJAS.AUDITORIA_TERRENO ||
-          bandeja.idBandeja === AUTORIZACIONES_BANDEJAS.INTERNACION_PAIS ||
-          bandeja.idBandeja === AUTORIZACIONES_BANDEJAS.INTERNACION_DOMICILIARIA
-      ).length > 0
-  );
 
   const { cantXFecha, cantXFechaBajas, seccionalesAltasBajasXFecha } =
     useSelector((state) => state.indicadores);
@@ -134,9 +104,7 @@ export const HomeScreen = (props) => {
 
   useEffect(() => {
     dispatch(indicadoresLimpiar());
-    if(esUsuarioAutorizaciones && tieneBandejasDenunciaInt) {
-      dispatch(getDetalleSolicitudesAutorizaciones());
-    } 
+    
     if(esUsuarioNacional || esUsuarioSeccional) {
       dispatch(fetchSeccionalesAltas());
       dispatch(fetchCantidadAfiliacionBajasxFecha());
@@ -145,9 +113,8 @@ export const HomeScreen = (props) => {
       dispatch(fetchCantidadesxAfiliacion());
       dispatch(fetchCantidadAfiliacionxFecha());
       
-      if(esUsuarioDisca) dispatch(fetchSeccionalesAltas(true));
     }
-  }, [dispatch, esUsuarioAutorizaciones, tieneBandejasDenunciaInt]);
+  }, [dispatch]);
 
   let data = seccionalesAltasBajasXFecha
     .filter(
@@ -270,7 +237,7 @@ export const HomeScreen = (props) => {
           <AltasBajasReactivaciones
             disca
             seccionales={seccionalesDisca}
-            esUsuarioDisca={esUsuarioDisca}
+            esUsuarioDisca={false}
           />
         </Paper>
       </Grid>
@@ -282,7 +249,7 @@ export const HomeScreen = (props) => {
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {(esUsuarioNacional || esUsuarioSeccional) &&
+            {/*{(esUsuarioNacional || esUsuarioSeccional) &&
               homeScreenUsuarioNacionalSeccional
             }
             {esUsuarioSeccional && esUsuarioDisca &&
@@ -290,7 +257,8 @@ export const HomeScreen = (props) => {
             }
             {esUsuarioAutorizaciones &&
               homeScreenUsarioAutorizaciones
-            }            
+            }*/}  
+            {homeScreenUsuarioNacionalSeccional }     
           </Grid>
         </Container>
       </main>

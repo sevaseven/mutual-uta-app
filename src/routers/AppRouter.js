@@ -28,13 +28,6 @@ import { useSelector } from "react-redux";
 export const AppRouter = () => {
   const location = useLocation();
   
-  const esUsuarioTotem = useSelector(
-    (state) =>
-      state.auth?.areas?.filter(
-        (area) => area.idArea === AREAS_USUARIOS.TOTEM
-      ).length > 0
-  );
-
   return (
     <MuiThemeProvider theme={location.pathname !== "/totem" ? theme : themeTotem}>
       <MuiPickersUtilsProvider locale={esLocale} utils={DateFnsUtils}>
@@ -42,7 +35,7 @@ export const AppRouter = () => {
         <Alertas />
         <Spinner />
         <div>
-          {!esUsuarioTotem && <AppNavbar />}
+          <AppNavbar />
           <Switch>
             <PublicRoute path="/auth/login" component={LoginScreen} />
             

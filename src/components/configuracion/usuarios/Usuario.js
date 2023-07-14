@@ -96,7 +96,7 @@ export const Usuario = () => {
     const handleSave = () => {
         dispatch(startUserUpdate({
             idUsuario, userName, dni, userLogin, email, idSeccional, observacion, cambioPassword,
-            matriculaNac, matriculaProv, especialidadesUsuarios, idProvinciaCSF
+            matriculaNac, matriculaProv, especialidadesUsuarios
         }));
     }
 
@@ -339,9 +339,6 @@ export const Usuario = () => {
                                 </Grid>
                                 <Grid item md={3} >
                                     <Grid container justify="center" spacing={3}>
-                                        <Grid item md={12} >
-                                            <Areas />
-                                        </Grid>
                                         <Grid item md={12} >
                                             <Roles />
                                         </Grid>

@@ -40,6 +40,8 @@ import {
   PersonAdd,
 } from "@material-ui/icons";
 import {
+  PERMISOS_PERMISOS,
+  ROLES_PERMISOS,
   USUARIOS_PERMISOS,
 } from "../../utils/permisos";
 import { MenuGeneric } from "../compartidos/MenuGeneric";
